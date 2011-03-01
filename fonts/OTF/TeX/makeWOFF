@@ -1,0 +1,17 @@
+#! /bin/csh -f
+
+#
+#  Make the WOFF fonts from the OTF fonts
+#  (requires sfnt2woff)
+#
+#    Usage:  ./makeWOFF
+#
+
+foreach file (otf/*.otf)
+echo $file:t:r
+sfnt2woff $file
+end
+mv otf/*.woff woff
+
+rm woff/*WinChrome* woff/*WinIE6*
+

@@ -1,0 +1,42 @@
+#! /usr/bin/perl
+
+#
+#  Combines the CSS files for IE9 into one CSS file for Firefox.
+#
+#    Usage:  ./css2all
+#
+
+print "/*************************************************************\n";
+print " *\n";
+print " *  MathJax/fonts/HTML-CSS/TeX/css/MathJax-All.css\n";
+print " *  \n";
+print " *  Copyright (c) 2011 by Design Science, Inc.\n";
+print " *\n";
+print " *  Licensed under the Apache License, Version 2.0 (the \"License\");\n";
+print " *  you may not use this file except in compliance with the License.\n";
+print " *  You may obtain a copy of the\n";
+print " *\n";
+print " *     http://www.apache.org/licenses/LICENSE-2.0\n";
+print " *\n";
+print " *  Unless required by applicable law or agreed to in writing, software\n";
+print " *  distributed under the License is distributed on an \"AS IS\" BASIS,\n";
+print " *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n";
+print " *  See the License for the specific language governing permissions and\n";
+print " *  limitations under the License.\n";
+print " */\n";
+
+while ($line = <>) {
+  if ($line =~ m/font-family: '(.*)-Web';/) {$family = $1}
+  elsif ($line =~ m/src: /) {
+    $italic = ($family =~ m/-italic/);
+    $bold   = ($family =~ m/-bold/);
+    $family =~ s/-.*//;
+    next if $family eq "MathJax_Greek";
+    print "\n\@font-face {\n";
+    print "  font-family: '$family';\n";
+    print "  font-style:  italic;\n" if $italic;
+    print "  font-weight: bold;\n"   if $bold;
+    print $line;
+    print "}\n";
+  }
+}
