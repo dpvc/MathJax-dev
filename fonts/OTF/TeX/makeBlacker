@@ -2,7 +2,7 @@
 
 #  Creates the metafont file needed for darker copies of the TeX fonts,
 #  and modifies mftrace to use it.
-#  
+#
 #  Usage:  ./makeBlacker blackness
 
 $blacker = shift;
@@ -11,7 +11,7 @@ unless ($blacker) {
   exit;
 }
 
-$MFTRACE = "/opt/local/bin/mftrace";
+$MFTRACE = "/usr/local/bin/mftrace";
 
 sub editMftrace {
   my $oldMFTRACE = $MFTRACE;
